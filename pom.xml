@@ -8,6 +8,7 @@
         <java.version>1.8</java.version>
         <plugin.compiler.maven>3.1</plugin.compiler.maven>
         <log4j.version>1.2.17</log4j.version>
+        <cervelet.version>3.1.0</cervelet.version>
    </properties>
    <dependencies>
    	 <dependency>
@@ -16,6 +17,12 @@
         <version>${log4j.version}</version>
         <scope>provided</scope>
     </dependency>
+    <dependency>
+	   <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>${cervelet.version}</version>
+	    <scope>provided</scope>
+	</dependency>
    </dependencies>
    <build>
         <plugins>
