@@ -1,7 +1,7 @@
 package fr.afcepf.al28.framework.controller;
 
 import java.io.IOException;
-import java.net.URI;
+import java.io.InputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 //import org.apache.log4j.Logger;
 
@@ -51,10 +57,32 @@ public class ActionServlet extends HttpServlet {
             throws ServletException, IOException {
         String strAction = request.getRequestURL().substring(request.getRequestURL().toString().lastIndexOf('/') + 1);
         if (strAction.contains(".perform")) {
-            ActionFactory factory = new ActionFactory();
-            IAction action =  factory.getAction(strAction.substring(0, strAction.lastIndexOf(".")));
-            RequestDispatcher disp = request.getRequestDispatcher("/" + action.execute(request, response));
-            disp.forward(request, response);
+            InputStream stream = getServletContext().getResourceAsStream("/WEB-INF/routing.xml");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
+            Document xml = null;
+            try {
+                xml = dbf.newDocumentBuilder().parse(stream);
+                NodeList actions = xml.getElementsByTagName("action");
+                String className = "";
+                System.out.println(className);
+                for (int i = 0; i < actions.getLength(); i++) {
+                    if (actions.item(i).getChildNodes().item(1).getTextContent().equals(strAction)) {
+                        className = actions.item(i).getChildNodes().item(0).getTextContent();
+                    }
+                }
+                System.out.println(className);
+                if (className != "") {
+                    System.out.println(className);
+                    ActionFactory factory = new ActionFactory();
+                    IAction action =  factory.getAction(className);
+                    RequestDispatcher disp = request.getRequestDispatcher("/" + action.execute(request, response));
+                    disp.forward(request, response);
+                }
+            } catch (SAXException | IOException | ParserConfigurationException paramE) {
+                // TODO Auto-generated catch block
+                paramE.printStackTrace();
+            }
         }
     }
 }

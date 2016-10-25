@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <monframework-config>
-<actions>
-	<action>
-		<action-name>fr.afcepf.al28.framework.action.Action1</action-name>
-		<url-pattern>action1.perform</url-pattern>
-		<retour>
-			<page value="toto.jsp" name="ok" />
-			<page value="tata.jsp" name="ko" />
-		</retour>
-	</action>
-	<action>
-		<action-name>fr.afcepf.al28.framework.action.Action2</action-name>
-		<url-pattern>action2.perform</url-pattern>
-		<retour>
-			<page value="toto.jsp" name="ok" />
-			<page value="tata.jsp" name="ko" />
-		</retour>
-	</action>
-</actions>
-<forms>
-<form>
-<form-class>form.TestWs1Form</form-class>
-<form-name>testWs1Form</form-name>
-</form>
-<form>
-<form-class>form.TestWs2Form</form-class>
-<form-name>testWs2Form</form-name>
-</form>
-</forms>
+	<actions>
+		<action>
+			<action-name>fr.afcepf.al28.framework.action.Action1</action-name>
+			<url-pattern>action1.perform</url-pattern>
+			<retour>
+				<page value="toto.jsp" name="ok" />
+				<page value="tata.jsp" name="ko" />
+			</retour>
+		</action>
+		<action>
+			<action-name>fr.afcepf.al28.framework.action.Action2</action-name>
+			<url-pattern>action2.perform</url-pattern>
+			<retour>
+				<page value="toto.jsp" name="ok" />
+				<page value="tata.jsp" name="ko" />
+			</retour>
+		</action>
+	</actions>
+	<forms>
+	<form>
+	<form-class>form.TestWs1Form</form-class>
+	<form-name>testWs1Form</form-name>
+	</form>
+	<form>
+	<form-class>form.TestWs2Form</form-class>
+	<form-name>testWs2Form</form-name>
+	</form>
+	</forms>
 </monframework-config>

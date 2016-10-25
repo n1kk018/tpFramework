@@ -23,17 +23,22 @@ public class ActionFactory {
      * Default constructor.
      */
     public ActionFactory() {
-        
-        dipsatchConfig = new HashMap<String, IAction>();
-        dipsatchConfig.put("action1", (IAction) (new Action1()));
-        dipsatchConfig.put("action2", (IAction) (new Action2()));
     }
     /**
      * url dispatcher.
      * @param urlPattern dispattching part of the url
      * @return action class
      */
-    public IAction getAction(String urlPattern) {
-        return dipsatchConfig.get(urlPattern);
+    public IAction getAction(String classe) {
+        Class<?> type;
+        IAction action=null;
+        try {
+            type = Class.forName(classe);
+            action = (IAction)type.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException paramE) {
+            // TODO Auto-generated catch block
+            paramE.printStackTrace();
+        }
+        return action;
     }
 }
