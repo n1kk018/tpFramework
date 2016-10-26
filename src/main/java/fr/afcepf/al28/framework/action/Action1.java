@@ -9,7 +9,10 @@ public class Action1 implements IAction {
 
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        return "tata.jsp";
+        if(Math.random() > 0.5) {
+            return "ok";
+        }
+        return "ko";
     }
 
 }

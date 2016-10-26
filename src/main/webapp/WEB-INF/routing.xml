@@ -5,27 +5,28 @@
 			<action-name>fr.afcepf.al28.framework.action.Action1</action-name>
 			<url-pattern>action1.perform</url-pattern>
 			<retour>
-				<page value="toto.jsp" name="ok" />
-				<page value="tata.jsp" name="ko" />
+				<ok>tataok.jsp</ok>
+				<ko>tatako.jsp</ko>
 			</retour>
+			<form-name>action1Form</form-name>
 		</action>
 		<action>
 			<action-name>fr.afcepf.al28.framework.action.Action2</action-name>
 			<url-pattern>action2.perform</url-pattern>
 			<retour>
-				<page value="toto.jsp" name="ok" />
-				<page value="tata.jsp" name="ko" />
-			</retour>
+				<ok>totook.jsp</ok>
+				<ko>totoko.jsp</ko>
+			</retour>	
 		</action>
 	</actions>
 	<forms>
-	<form>
-	<form-class>form.TestWs1Form</form-class>
-	<form-name>testWs1Form</form-name>
-	</form>
-	<form>
-	<form-class>form.TestWs2Form</form-class>
-	<form-name>testWs2Form</form-name>
-	</form>
+		<form>
+			<form-class>fr.afcepf.al28.framework.form.Form1</form-class>
+			<form-name>action1Form</form-name>
+		</form>
+		<form>
+			<form-class>fr.afcepf.al28.framework.form.Form2</form-class>
+			<form-name>action2Form</form-name>
+		</form>
 	</forms>
 </monframework-config>

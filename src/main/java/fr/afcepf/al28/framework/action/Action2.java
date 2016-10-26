@@ -13,7 +13,10 @@ public class Action2 implements IAction{
 
     @Override
     public String execute(HttpServletRequest paramRequest, HttpServletResponse paramResponse) {
-        return "toto.jsp";
+        if(Math.random() > 0.5) {
+            return "ok";
+        }
+        return "ko";
     }
 
 }
