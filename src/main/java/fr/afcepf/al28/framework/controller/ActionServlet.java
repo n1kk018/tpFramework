@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.afcepf.al28.framework.api.IAction;
 import fr.afcepf.al28.framework.api.IActionForm;
+import fr.afcepf.al28.framework.exception.FrameworkException;
 import fr.afcepf.al28.framework.factory.ActionFactory;
+import fr.afcepf.al28.framework.form.Form1;
 import fr.afcepf.al28.framework.util.MyBeanPopulate;
 /**
  * Front Controller of my framework.
@@ -26,15 +28,15 @@ public class ActionServlet extends HttpServlet {
      */
     private Map<String, IAction> actionsMap;
     /**
-     * map associating an action classname to a page according to the return of the execute method. 
+     * map associating an action classname to a page according to the return of the execute method.
      */
     private Map<String, Map<String, String>> returnPagesMap;
     /**
-     * map associating an action classname to a form class. 
+     * map associating an action classname to a form class.
      */
     private Map<String, String> formsPageMap;
     /**
-     * map associating an action classname to a form class. 
+     * map associating an action classname to a form class.
      */
     private Map<String, IActionForm> formsMap;
     /**
@@ -82,12 +84,22 @@ public class ActionServlet extends HttpServlet {
             throws ServletException, IOException {
         String urlPattern = request.getRequestURL().substring(request.getRequestURL().toString().lastIndexOf('/') + 1);
         IAction action =  actionsMap.get(urlPattern);
-        if (formsPageMap.containsKey(action.getClass().getName()))  {
-            IActionForm form = formsMap.get(formsPageMap.get(action.getClass().getName()));
-            form = MyBeanPopulate.populateBean(form, request.getParameterMap());
-            if (form.validateForm()) { }
-        } else {
-            doGet(request, response);
+        IActionForm form = null;
+        try {
+            if (formsPageMap.containsKey(action.getClass().getName()))  {
+                form = formsMap.get(formsPageMap.get(action.getClass().getName()));
+                form = MyBeanPopulate.populateBean(form, request.getParameterMap());
+                RequestDispatcher disp = null;
+                if (form.validateForm()) {
+                    disp = request.getRequestDispatcher("/");
+                    disp.forward(request, response);
+                } else if(form.hasError()){
+                    request.setAttribute("error_message", form.getError());
+                }
+            }
+        } catch (FrameworkException paramE) {
+            request.setAttribute("error_message", paramE.getMessage());
         }
+        doGet(request, response);
     }
 }

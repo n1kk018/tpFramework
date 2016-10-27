@@ -6,4 +6,6 @@ package fr.afcepf.al28.framework.api;
  */
 public interface IActionForm {
     Boolean validateForm();
+    Boolean hasError();
+    String getError();
 }

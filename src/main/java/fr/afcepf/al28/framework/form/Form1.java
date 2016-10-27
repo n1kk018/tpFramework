@@ -1,20 +1,22 @@
 package fr.afcepf.al28.framework.form;
 
+import java.io.Serializable;
+
 import fr.afcepf.al28.framework.api.IActionForm;
+import fr.afcepf.al28.framework.exception.FrameworkErrorCode;
+import fr.afcepf.al28.framework.exception.FrameworkException;
 
-public class Form1 implements IActionForm{
-    private String civility;
-    private String firstname;
-    private String lastname;
+public class Form1 implements IActionForm, Serializable {
     /**
-     * 
+     * Serialization ID.
      */
-    public Form1() {
-        super();
-    }
+    private static final long serialVersionUID = 1L;
+    private String civility="";
+    private String firstname="";
+    private String lastname="";
+    private Integer age=0;
+    private String error_field="";
     
-
-
     /**
      * @return the civility
      */
@@ -66,11 +68,33 @@ public class Form1 implements IActionForm{
     public void setLastname(String paramLastname) {
         lastname = paramLastname;
     }
-
-
-
+    
+     /**
+     * @return the age
+     */
+    public Integer getAge() {
+        return age;
+    }
+    /**
+     * @param paramAge the age to set
+     */
+    public void setAge(Integer paramAge) {
+        age = paramAge;
+    }
+    @Override
+    public Boolean hasError() {
+        return error_field != "";
+    }
+    @Override
+    public String getError() {
+        return error_field;
+    }
     @Override
     public Boolean validateForm() {
+        if (age < 18) {
+            error_field = "Inscription interdite aux mineurs!";
+            return false;
+        }
         return true;
     }
 

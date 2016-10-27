@@ -9,5 +9,17 @@ public class Form2 implements IActionForm{
         // TODO Auto-generated method stub
         return true;
     }
+
+    @Override
+    public Boolean hasError() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getError() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
